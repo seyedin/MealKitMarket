@@ -1,0 +1,22 @@
+#spring.application.name=helloFood
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/hellofood
+    username: Maktab
+    password: Maktab123
+    hikari:
+      auto-commit: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
