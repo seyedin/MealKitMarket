@@ -5,14 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "addresses")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address extends BaseEntity {
@@ -20,7 +16,7 @@ public class Address extends BaseEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Customer customer;
 
     @NotBlank(message = "Street is mandatory")
     private String street;
@@ -36,4 +32,5 @@ public class Address extends BaseEntity {
 
     @NotNull
     private Boolean isDefault = false;
+
 }
