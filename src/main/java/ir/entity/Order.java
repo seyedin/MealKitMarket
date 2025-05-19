@@ -39,7 +39,7 @@ public class Order extends BaseEntity {
     @PositiveOrZero(message = "Total price cannot be negative")
     private Double totalPrice;
 
-//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems;
 
 }
