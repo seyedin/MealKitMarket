@@ -34,7 +34,7 @@ public class Order extends BaseEntity {
 
     @NotBlank(message = "Status is mandatory")
     private String status;
-
+//commit for feature seyedin
     @NotNull
     @PositiveOrZero(message = "Total price cannot be negative")
     private Double totalPrice;
