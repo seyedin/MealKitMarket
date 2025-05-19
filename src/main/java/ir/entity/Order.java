@@ -43,4 +43,6 @@ public class Order extends BaseEntity {
     private List<OrderItem> orderItems;
 
     private String sajadchange;
+
+    private String change5;
 }
