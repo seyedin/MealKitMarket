@@ -19,7 +19,7 @@ public class ExcludedIngredient extends BaseEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_item_id")
-    private OrderItem orderItem;
+    private OrderMealKit orderItem;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

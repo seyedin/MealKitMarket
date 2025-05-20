@@ -11,17 +11,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "cart_items")
+@Table(name = "order_mealKit")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartItem extends BaseEntity {
+public class OrderMealKit extends BaseEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,4 +38,11 @@ public class CartItem extends BaseEntity {
     @Min(value = 1, message = "Servings must be at least 1")
     @Max(value = 6, message = "Servings cannot exceed 6")
     private Integer servings;
+
+    @NotNull
+    @Positive(message = "Unit price must be positive")
+    private Double unitPrice;
+
+    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ExcludedIngredient> excludedIngredients;
 }

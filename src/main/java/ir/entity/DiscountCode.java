@@ -1,5 +1,6 @@
 package ir.entity;
 
+//TODO : need to check.
 
 import ir.entity.base.BaseEntity;
 import jakarta.persistence.*;
@@ -16,8 +17,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "discount_codes")
+//@Entity
+//@Table(name = "discount_codes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,7 +38,7 @@ public class DiscountCode extends BaseEntity {
     @NotNull
     private Boolean isActive = true;
 
-    @OneToMany(mappedBy = "discountCode", fetch = FetchType.LAZY)
-    private List<Order> orders;
+//    @OneToMany(mappedBy = "discountCode", fetch = FetchType.LAZY)
+//    private List<Order> orders;
 
 }

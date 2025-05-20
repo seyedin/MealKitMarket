@@ -31,9 +31,13 @@ public class MealKit extends BaseEntity {
     private String category;
 
     @NotNull
-    @Min(value = 1, message = "Servings must be at least 1")
-    @Max(value = 6, message = "Servings cannot exceed 6")
-    private Integer servings;
+    @Min(value = 1, message = "Portion size must be at least 1")
+    @Max(value = 6, message = "Portion size cannot exceed 6")
+    private Integer portionSize;
+
+    @NotNull
+    @PositiveOrZero(message = "Calories cannot be negative")
+    private Integer calories;
 
     @NotNull
     @Positive(message = "Preparation time must be positive")
@@ -41,14 +45,21 @@ public class MealKit extends BaseEntity {
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "mealKit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany
+    @JoinTable(
+            name = "mealkit_category",
+            joinColumns = @JoinColumn(name = "mealkit_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
+
+    @OneToMany(mappedBy = "mealKit", fetch = FetchType.LAZY)
     private List<MealKitIngredient> mealKitIngredients;
 
-    @OneToMany(mappedBy = "mealKit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "mealKit", fetch = FetchType.LAZY)
+    private List<CartMealKit> cartMealKits;
 
-    @OneToMany(mappedBy = "mealKit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CartItem> cartItems;
-
+    @OneToMany(mappedBy = "mealKit", fetch = FetchType.LAZY)
+    private List<OrderMealKit> orderMealKits;
 }
 

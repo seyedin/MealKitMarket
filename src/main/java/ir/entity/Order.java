@@ -1,7 +1,9 @@
 package ir.entity;
 
 import ir.entity.base.BaseEntity;
+import ir.entity.enums.OrderStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -30,16 +32,18 @@ public class Order extends BaseEntity {
     private LocalDateTime orderDate = LocalDateTime.now();
 
     @NotNull
+    @Future(message = "Delivery date must be in the future")
     private LocalDateTime deliveryDate;
 
     @NotBlank(message = "Status is mandatory")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @NotNull
     @PositiveOrZero(message = "Total price cannot be negative")
     private Double totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderItem> orderItems;
-
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    // cascade = CascadeType.ALL
+    private List<OrderMealKit> orderMealKits;
 }
