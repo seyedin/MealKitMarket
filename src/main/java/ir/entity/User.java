@@ -37,6 +37,7 @@ public abstract class User extends BaseEntity {
     @NotBlank(message = "First name is mandatory")
     private String firstName;
 
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
     @NotBlank(message = "Phone number is mandatory")
