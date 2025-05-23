@@ -17,3 +17,7 @@ spring:
           lob:
             non_contextual_creation: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: zrke4wpL1OQYMy32A95eY7FgKoTBYdke7zRrAVOpC3U=
+  expiration: 86400000 # 1 روز (به میلی‌ثانیه)
