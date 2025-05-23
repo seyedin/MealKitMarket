@@ -21,8 +21,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-@SQLDelete(sql = "UPDATE users SET status = 'DELETED' WHERE id = ?")
-@SQLRestriction(value = "deleted = false")
+//@SQLDelete(sql = "UPDATE users SET status = 'DELETED' WHERE id = ?")
+//@SQLRestriction(value = "deleted = false")
 public abstract class User extends BaseEntity {
 
     @NotBlank(message = "Email is mandatory")
@@ -37,6 +37,7 @@ public abstract class User extends BaseEntity {
     @NotBlank(message = "First name is mandatory")
     private String firstName;
 
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
     @NotBlank(message = "Phone number is mandatory")
