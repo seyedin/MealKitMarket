@@ -26,6 +26,7 @@ public class Inventory extends BaseEntity {
 
     @NotNull
     @PositiveOrZero(message = "Quantity cannot be negative")
+    @Column(nullable = false)
     private Double quantity;
 
     @NotNull

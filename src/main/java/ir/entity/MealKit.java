@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MealKit extends BaseEntity {
     @NotBlank(message = "Name is mandatory")
+    @Column(unique = true, nullable = false)
     private String name;
 
     @NotBlank(message = "Description is mandatory")
@@ -25,15 +26,8 @@ public class MealKit extends BaseEntity {
 
     @NotNull
     @Positive(message = "Price must be positive")
+    @Column(nullable = false)
     private Double price;
-
-    @NotBlank(message = "Category is mandatory")
-    private String category;
-
-    @NotNull
-    @Min(value = 1, message = "Portion size must be at least 1")
-    @Max(value = 6, message = "Portion size cannot exceed 6")
-    private Integer portionSize;
 
     @NotNull
     @PositiveOrZero(message = "Calories cannot be negative")
@@ -41,6 +35,7 @@ public class MealKit extends BaseEntity {
 
     @NotNull
     @Positive(message = "Preparation time must be positive")
+    @Column(nullable = false)
     private Integer prepTime;
 
     private String imageUrl;

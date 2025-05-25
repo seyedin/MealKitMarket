@@ -20,7 +20,7 @@ import java.util.List;
 public class Category extends BaseEntity {
 
     @NotBlank(message = "Name is mandatory")
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     private String description;

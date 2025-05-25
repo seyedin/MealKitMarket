@@ -32,15 +32,18 @@ public class OrderMealKit extends BaseEntity {
 
     @NotNull
     @Positive(message = "Quantity must be positive")
+    @Column(nullable = false)
     private Integer quantity;
 
     @NotNull
     @Min(value = 1, message = "Servings must be at least 1")
     @Max(value = 6, message = "Servings cannot exceed 6")
+    @Column(nullable = false)
     private Integer servings;
 
     @NotNull
     @Positive(message = "Unit price must be positive")
+    @Column(nullable = false)
     private Double unitPrice;
 
     @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

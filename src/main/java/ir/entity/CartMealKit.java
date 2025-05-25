@@ -30,6 +30,7 @@ public class CartMealKit extends BaseEntity {
 
     @NotNull
     @Positive(message = "Quantity must be positive")
+    @Column(nullable = false)
     private Integer quantity;
 
     @NotNull

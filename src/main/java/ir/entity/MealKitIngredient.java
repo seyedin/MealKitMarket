@@ -34,5 +34,6 @@ public class MealKitIngredient {
 
     @NotNull
     @Positive(message = "Quantity must be positive")
+    @Column(nullable = false)
     private Double quantity;
 }
