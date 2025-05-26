@@ -18,10 +18,11 @@ import java.util.List;
 public class Ingredient extends BaseEntity {
 
     @NotBlank(message = "Name is mandatory")
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @NotBlank(message = "Unit is mandatory")
+    @Column(nullable = false)
     private String unit;
 
     private String description;

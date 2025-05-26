@@ -33,14 +33,17 @@ public class Order extends BaseEntity {
 
     @NotNull
     @Future(message = "Delivery date must be in the future")
+    @Column(nullable = false)
     private LocalDateTime deliveryDate;
 
     @NotBlank(message = "Status is mandatory")
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus status;
 
     @NotNull
     @PositiveOrZero(message = "Total price cannot be negative")
+    @Column(nullable = false)
     private Double totalPrice;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
