@@ -1,12 +1,12 @@
 package ir.entity;
 
+import ir.entity.base.BaseEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("CUSTOMER")
-public class Customer extends User {
+public class Customer extends BaseEntity {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses;
 
@@ -15,4 +15,7 @@ public class Customer extends User {
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Cart cart;
+
+    @OneToOne
+    private User user;
 }

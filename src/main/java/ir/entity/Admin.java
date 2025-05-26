@@ -1,9 +1,12 @@
 package ir.entity;
 
-import jakarta.persistence.DiscriminatorValue;
+import ir.entity.base.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
-@DiscriminatorValue("ADMIN")
-public class Admin extends User {
+@Entity
+public class Admin extends BaseEntity {
 
+    @OneToOne
+    private User user;
 }

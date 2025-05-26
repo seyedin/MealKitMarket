@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,8 +20,6 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 //@SQLDelete(sql = "UPDATE users SET status = 'DELETED' WHERE id = ?")
 //@SQLRestriction(value = "deleted = false")
 public abstract class User extends BaseEntity implements UserDetails {
@@ -65,8 +62,9 @@ public abstract class User extends BaseEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+                .flatMap(role -> role.getPermissions().stream())
+                .map(permission -> new SimpleGrantedAuthority(permission.getName()))
+                .collect(Collectors.toSet());
     }
 
     @Override
