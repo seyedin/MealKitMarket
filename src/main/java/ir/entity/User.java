@@ -6,7 +6,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +23,12 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
+@Setter
+@Getter
 //@SQLDelete(sql = "UPDATE users SET status = 'DELETED' WHERE id = ?")
 //@SQLRestriction(value = "deleted = false")
-public abstract class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")

@@ -1,6 +1,5 @@
 package ir.dto.user;
 
-import ir.entity.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,9 +25,6 @@ public record UserCreateDTO(
         String lastName,
 
         @NotBlank(message = "Phone number is mandatory")
-        String phoneNumber,
-
-        @NotBlank(message = "User type is mandatory")
-        UserType requestedType
+        String phoneNumber
 ) {
 }
