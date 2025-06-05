@@ -1,4 +1,4 @@
-package ir.dto;
+package ir.dto.customer;
 
 import ir.dto.user.UserCreateDTO;
 
