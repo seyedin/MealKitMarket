@@ -26,7 +26,7 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
         ExceptionResponseDTO responseDto = new ExceptionResponseDTO(
                 HttpStatus.UNAUTHORIZED,
                 "Invalid token",
-                LocalDateTime.now(),
+                LocalDateTime.now().toString(),
                 null
         );
         ObjectMapper mapper = new ObjectMapper();

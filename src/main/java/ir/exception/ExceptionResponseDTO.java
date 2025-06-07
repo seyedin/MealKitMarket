@@ -9,7 +9,7 @@ import java.util.Map;
 public record ExceptionResponseDTO(
         HttpStatus status,
         String message,
-        LocalDateTime timestamp,
+        String timestamp,
         Map<String, List<String>> fieldErrors
 ) {
 }
