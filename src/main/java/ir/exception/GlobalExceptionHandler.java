@@ -34,7 +34,7 @@ public class GlobalExceptionHandler extends
         return new ResponseEntity<>(new ExceptionResponseDTO(
                 HttpStatus.BAD_REQUEST,
                 "Validation failed",
-                LocalDateTime.now(),
+                LocalDateTime.now().toString(),
                 fieldErrors
         ),
                 HttpStatus.BAD_REQUEST);
