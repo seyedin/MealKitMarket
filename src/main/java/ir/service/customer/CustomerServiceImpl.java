@@ -1,4 +1,4 @@
-package ir.service.impl;
+package ir.service.customer;
 
 import ir.dto.customer.CustomerCreateDTO;
 import ir.dto.customer.CustomerResponseDTO;
@@ -6,7 +6,6 @@ import ir.entity.Customer;
 import ir.entity.User;
 import ir.mapper.CustomerMapper;
 import ir.repository.CustomerRepository;
-import ir.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package ir.service;
+package ir.service.role;
 
 import ir.entity.Role;
 

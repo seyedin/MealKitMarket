@@ -1,18 +1,15 @@
-package ir.service.impl;
+package ir.service.user;
 
 import ir.dto.user.UserCreateDTO;
 import ir.entity.User;
 import ir.exception.BusinessDuplicateException;
 import ir.mapper.UserMapper;
 import ir.repository.UserRepository;
-import ir.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor

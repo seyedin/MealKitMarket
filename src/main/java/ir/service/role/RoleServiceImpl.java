@@ -1,8 +1,7 @@
-package ir.service.impl;
+package ir.service.role;
 
 import ir.entity.Role;
 import ir.repository.RoleRepository;
-import ir.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

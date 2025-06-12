@@ -1,4 +1,4 @@
-package ir.service;
+package ir.service.user;
 
 import ir.dto.user.UserCreateDTO;
 import ir.entity.User;
