@@ -1,4 +1,4 @@
-package ir.service.impl;
+package ir.service.auth;
 
 import ir.dto.auth.LoginRequestDTO;
 import ir.dto.customer.CustomerCreateDTO;
@@ -7,12 +7,13 @@ import ir.entity.Role;
 import ir.entity.User;
 import ir.exception.RoleNotFoundException;
 import ir.security.JwtTokenProvider;
-import ir.service.AuthService;
-import ir.service.CustomerService;
-import ir.service.RoleService;
-import ir.service.UserService;
+import ir.service.customer.CustomerService;
+import ir.service.role.RoleService;
+import ir.service.user.UserService;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
@@ -29,6 +31,7 @@ public class AuthServiceImpl implements AuthService {
     private final RoleService roleService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final TokenBlacklistService tokenBlacklistService;
     private Role roleCustomer;
 
 
@@ -55,4 +58,14 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return jwtTokenProvider.generateToken(loginRequest.username());
     }
+
+    @Override
+    public void logout(HttpServletRequest request) {
+        String token = jwtTokenProvider.extractTokenFromRequest(request);
+        if (token != null) {
+            tokenBlacklistService.blacklistToken(token);
+        }
+        SecurityContextHolder.clearContext();
+    }
+
 }
