@@ -10,7 +10,6 @@ import ir.security.JwtTokenProvider;
 import ir.service.customer.CustomerService;
 import ir.service.role.RoleService;
 import ir.service.user.UserService;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,18 +31,18 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final TokenBlacklistService tokenBlacklistService;
-    private Role roleCustomer;
 
-
-    @PostConstruct
-    public void init() {
-        this.roleCustomer = roleService.findByName("ROLE_CUSTOMER")
-                .orElseThrow(()-> new RoleNotFoundException("Customer"));
-    }
+//    @PostConstruct
+//    public void init() {
+//        this.roleCustomer = roleService.findByName("ROLE_CUSTOMER")
+//                .orElseThrow(()-> new RoleNotFoundException("Customer"));
+//    }
 
     @Transactional
     @Override
     public CustomerResponseDTO signupCustomer(CustomerCreateDTO dto) {
+        Role roleCustomer = roleService.findByName("ROLE_CUSTOMER")
+                .orElseThrow(() -> new RoleNotFoundException("Customer"));
         User user = userService.save(dto.userDto());
         user.getRoles().add(roleCustomer);
         return customerService.createWithUser(dto, user);
