@@ -6,87 +6,91 @@ import ir.repository.PermissionRepository;
 import ir.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Component
+@Configuration
 @RequiredArgsConstructor
 @Slf4j
-public class RolePermissionSeeder implements CommandLineRunner {
+public class RolePermissionSeeder {
 
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
 
-    @Override
-    public void run(String... args) {
-        List<String> permissionNames = List.of(
-                "CAN_VIEW_MEALS",
-                "CAN_PLACE_ORDER",
-                "CAN_CREATE_MENU",
-                "CAN_EDIT_USERS",
-                "CAN_MANAGE_ORDERS"
-        );
+    @Bean
+    public InitializingBean seedRoles() {
+        return () -> {
+            List<String> permissionNames = List.of(
+                    "CAN_VIEW_MEALS",
+                    "CAN_PLACE_ORDER",
+                    "CAN_CREATE_MENU",
+                    "CAN_EDIT_USERS",
+                    "CAN_MANAGE_ORDERS"
+            );
 
-        Set<Permission> allPermissions = new HashSet<>();
-        for (String name : permissionNames) {
-            Permission permission = permissionRepository.findByName(name)
-                    .orElseGet(() -> permissionRepository.save(new Permission(name)));
-            allPermissions.add(permission);
-        }
-        createOrUpdateRole("ROLE_CUSTOMER", Set.of(
-                getPermission(allPermissions, "CAN_VIEW_MEALS"),
-                getPermission(allPermissions, "CAN_PLACE_ORDER")
-        ));
+            Set<Permission> allPermissions = new HashSet<>();
+            for (String name : permissionNames) {
+                Permission permission = permissionRepository.findByName(name)
+                        .orElseGet(() -> permissionRepository.save(new Permission(name)));
+                allPermissions.add(permission);
+            }
+            createOrUpdateRole("ROLE_CUSTOMER", Set.of(
+                    getPermission(allPermissions, "CAN_VIEW_MEALS"),
+                    getPermission(allPermissions, "CAN_PLACE_ORDER")
+            ));
 
-        createOrUpdateRole("ROLE_ADMIN_BASIC", Set.of(
-                getPermission(allPermissions, "CAN_MANAGE_ORDERS")
-        ));
+            createOrUpdateRole("ROLE_ADMIN_BASIC", Set.of(
+                    getPermission(allPermissions, "CAN_MANAGE_ORDERS")
+            ));
 
-        createOrUpdateRole("ROLE_ADMIN_FULL", Set.of(
-                getPermission(allPermissions, "CAN_MANAGE_ORDERS"),
-                getPermission(allPermissions, "CAN_EDIT_USERS"),
-                getPermission(allPermissions, "CAN_CREATE_MENU")
-        ));
+            createOrUpdateRole("ROLE_ADMIN_FULL", Set.of(
+                    getPermission(allPermissions, "CAN_MANAGE_ORDERS"),
+                    getPermission(allPermissions, "CAN_EDIT_USERS"),
+                    getPermission(allPermissions, "CAN_CREATE_MENU")
+            ));
+        };
     }
-        private void createOrUpdateRole (
-                String roleName, Set < Permission > desiredPermissions){
-            Role role = roleRepository.findByName(roleName).orElseGet(() -> {
-                Role newRole = new Role();
-                newRole.setName(roleName);
-                return newRole;
-            });
 
-            if (role.getPermissions() == null) {
-                role.setPermissions(new HashSet<>());
-            }
+    private void createOrUpdateRole(
+            String roleName, Set<Permission> desiredPermissions) {
+        Role role = roleRepository.findByName(roleName).orElseGet(() -> {
+            Role newRole = new Role();
+            newRole.setName(roleName);
+            return newRole;
+        });
 
-            boolean updated = false;
-            for (Permission permission : desiredPermissions) {
-                if (!role.getPermissions().contains(permission)) {
-                    role.getPermissions().add(permission);
-                    updated = true;
-                }
-            }
+        if (role.getPermissions() == null) {
+            role.setPermissions(new HashSet<>());
+        }
 
-            if (role.getId() == null || updated) {
-                roleRepository.save(role);
-                log.info(
-                        "{} role: {}", role.getId() == null ? "Created" : "Updated", roleName);
+        boolean updated = false;
+        for (Permission permission : desiredPermissions) {
+            if (!role.getPermissions().contains(permission)) {
+                role.getPermissions().add(permission);
+                updated = true;
             }
         }
 
-        private Permission getPermission (Set < Permission > permissions, String name){
-            return permissions.stream()
-                    .filter(p -> p.getName().equals(name))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Permission not found: " + name));
+        if (role.getId() == null || updated) {
+            roleRepository.save(role);
+            log.info(
+                    "{} role: {}", role.getId() == null ? "Created" : "Updated", roleName);
         }
+    }
 
-        // 3. Create default admin user (optional)
+    private Permission getPermission(Set<Permission> permissions, String name) {
+        return permissions.stream()
+                .filter(p -> p.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Permission not found: " + name));
+    }
+
+    // 3. Create default admin user (optional)
 //        String defaultEmail = "admin@example.com";
 //        if (userRepository.findByEmail(defaultEmail).isEmpty()) {
 //            User admin = new User();

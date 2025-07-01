@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://dpg-d0me0jogjchc738f0cgg-a.frankfurt-postgres.render.com:5432/mealkitservice
-    username: mealkitservice_user
-    password: zQHMYnRtqCqbNMgfPGjPNKrDqHMw1pnx
+    url: jdbc:postgresql://ep-patient-smoke-a9coto8g-pooler.gwc.azure.neon.tech:5432/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_Wzx6LXQUgt9f
     hikari:
       auto-commit: false
 
