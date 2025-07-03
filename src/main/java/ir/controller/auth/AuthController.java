@@ -1,4 +1,4 @@
-package ir.controller;
+package ir.controller.auth;
 
 import ir.dto.auth.JwtResponseDTO;
 import ir.dto.auth.LoginRequestDTO;

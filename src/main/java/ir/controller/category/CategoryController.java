@@ -1,4 +1,4 @@
-package ir.controller;
+package ir.controller.category;
 
 import ir.dto.category.CategoryCreateDTO;
 import ir.dto.category.CategoryResponseDto;
