@@ -1,5 +1,6 @@
 package ir.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ir.entity.base.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,6 +27,12 @@ public class Category extends BaseEntity {
 
     private String description;
 
+    /**
+     * The {@code @JsonBackReference} annotation is used to prevent
+     * infinite recursion when converting to JSON by skipping this side
+     * during serialization.
+     */
     @ManyToMany(mappedBy = "categories")
-    private List<MealKit> mealKits;
+    @JsonBackReference
+    private List<MealKit> mealKits = new ArrayList<>();
 }
