@@ -1,4 +1,4 @@
-package ir.dto;
+package ir.dto.category;
 
 import jakarta.validation.constraints.NotBlank;
 

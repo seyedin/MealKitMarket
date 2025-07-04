@@ -1,6 +1,8 @@
-package ir.dto;
+package ir.dto.mealkit;
 
 import jakarta.validation.constraints.*;
+
+import java.util.List;
 
 public record MealKitCreateDTO(
         @NotBlank(message = "Name is mandatory")
@@ -13,8 +15,8 @@ public record MealKitCreateDTO(
         @Positive(message = "Price must be positive")
         Double price,
 
-        @NotBlank(message = "Category is mandatory")
-        String category,
+        @NotEmpty(message = "At least one category is required")
+        List<Long> categoryIds,
 
         @NotNull
         @Min(value = 1, message = "Portion size must be at least 1")
