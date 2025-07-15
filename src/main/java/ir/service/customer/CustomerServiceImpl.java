@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
@@ -19,10 +21,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional
     @Override
-    public CustomerResponseDTO createWithUser(CustomerCreateDTO dto, User user) {
+    public Customer createWithUser(CustomerCreateDTO dto, User user) {
         Customer customer = customerMapper.toEntity(dto);
         customer.setUser(user);
-        return customerMapper.toResponseDTO(
-                customerRepository.save(customer));
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public Optional<Customer> findByUserId(Long userId) {
+        return customerRepository.findByUser_Id(userId);
     }
 }

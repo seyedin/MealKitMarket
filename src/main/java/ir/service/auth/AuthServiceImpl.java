@@ -3,10 +3,13 @@ package ir.service.auth;
 import ir.dto.auth.LoginRequestDTO;
 import ir.dto.customer.CustomerCreateDTO;
 import ir.dto.customer.CustomerResponseDTO;
+import ir.entity.Customer;
 import ir.entity.Role;
 import ir.entity.User;
 import ir.exception.RoleNotFoundException;
+import ir.mapper.CustomerMapper;
 import ir.security.JwtTokenProvider;
+import ir.service.cart.CartService;
 import ir.service.customer.CustomerService;
 import ir.service.role.RoleService;
 import ir.service.user.UserService;
@@ -27,7 +30,9 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
     private final CustomerService customerService;
+    private final CartService cartService;
     private final RoleService roleService;
+    private final CustomerMapper customerMapper;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final TokenBlacklistService tokenBlacklistService;
@@ -45,7 +50,9 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new RoleNotFoundException("Customer"));
         User user = userService.save(dto.userDto());
         user.getRoles().add(roleCustomer);
-        return customerService.createWithUser(dto, user);
+        Customer customer = customerService.createWithUser(dto, user);
+        cartService.createCart(customer);
+        return customerMapper.toResponseDTO(customer);
     }
 
     @Override
