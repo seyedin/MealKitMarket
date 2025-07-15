@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -69,5 +70,15 @@ public class MealKitServiceImpl implements MealKitService {
     public Page<MealKitResponseFilterDTO> getFilteredMealKits(MealKitRequestFilterDto filterDto, Pageable pageable) {
         Page<MealKit> mealKits = mealKitRepository.findAll(MealKitSpecification.filterMealKit(filterDto), pageable);
         return mealKits.map(mealKitMapper::toFilterDto);
+    }
+
+    @Override
+    public Optional<MealKit> findById(Long mealKitId) {
+        return mealKitRepository.findById(mealKitId);
+    }
+
+    @Override
+    public List<MealKit> findAllById(List<Long> mealKitIds) {
+        return mealKitRepository.findAllById(mealKitIds);
     }
 }

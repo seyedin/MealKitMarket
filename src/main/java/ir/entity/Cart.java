@@ -4,7 +4,9 @@ import ir.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Table(name = "carts")
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 public class Cart extends BaseEntity {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)

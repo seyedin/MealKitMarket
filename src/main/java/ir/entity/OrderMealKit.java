@@ -46,6 +46,6 @@ public class OrderMealKit extends BaseEntity {
     @Column(nullable = false)
     private Double unitPrice;
 
-    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "orderItem", fetch = FetchType.LAZY)
     private List<ExcludedIngredient> excludedIngredients;
 }
