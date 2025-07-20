@@ -1,4 +1,4 @@
-package ir.dto;
+package ir.dto.order;
 
 import ir.entity.enums.OrderStatus;
 import jakarta.persistence.EnumType;
@@ -16,12 +16,15 @@ public record OrderCreateDTO(
         @Future(message = "Delivery date must be in the future")
         LocalDateTime deliveryDate,
 
-        @NotBlank(message = "Status is mandatory")
-        @Enumerated(EnumType.STRING)
-        OrderStatus status,
+        @NotNull(message = "Address ID is mandatory")
+        Long addressId
 
-        @NotNull
-        @PositiveOrZero(message = "Total price cannot be negative")
-        Double totalPrice
+//        @NotBlank(message = "Status is mandatory")
+//        @Enumerated(EnumType.STRING)
+//        OrderStatus status,
+
+//        @NotNull
+//        @PositiveOrZero(message = "Total price cannot be negative")
+//        Double totalPrice
 ) {
 }

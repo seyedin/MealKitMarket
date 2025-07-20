@@ -3,10 +3,7 @@ package ir.entity;
 import ir.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @Table(name = "ingredients")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Ingredient extends BaseEntity {
 
     @NotBlank(message = "Name is mandatory")

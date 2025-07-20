@@ -8,6 +8,7 @@ public class MealKitMarketApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MealKitMarketApplication.class, args);
+		System.out.println("\n >>> MealKitMarket Application Started Successfully!");
 	}
 
 }
